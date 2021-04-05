@@ -18,3 +18,13 @@ All models were downloaded and converted to .glb using Blender and associated te
 
 <img src="./capture.jpg" alt="Innertain" width="250"/>
 
+
+Development Notes:
+
+- **SSL/HTTPS** is **required** on the hosting server in order for a mobile device that is downloading
+the hmtl/content to allow the Camera to be used.
+- **Audio** can only be triggered after a user has interacted (i.e. clicked a button) on the web page.
+
+
+
+
