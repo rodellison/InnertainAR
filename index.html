@@ -1,0 +1,153 @@
+<!doctype HTML>
+<html>
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>AR Experience</title>
+
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="js/aframe-ar.js"></script>
+
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+
+    <!-- client code -->
+    <script src="js/globals-ar.js"></script>
+    <script src="aframe-components/markerhandler.js"></script>
+    <script src="aframe-components/simpleaudiohandler.js"></script>
+    <script src="aframe-components/gestures.js"></script>
+    <script src="aframe-components/Lynx.js"></script>
+    <script src="aframe-components/Splaterella.js"></script>
+    <script src="aframe-components/FortniteDerby.js"></script>
+    <script src="aframe-components/ElectricSwing.js"></script>
+    <script src="aframe-components/Shadows.js"></script>
+    <script src="aframe-components/circlebars.js"></script>
+    <script src="aframe-components/aframe-particle-system-component.js"></script>
+    <script src="aframe-components/reorienthandler.js"></script>
+
+    <style>
+        .topbanner {
+            z-index: 10;
+            width: 100%;
+            height: 10%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-image: url("images/innertain-banner.jpg");
+            background-size: cover;
+            text-align: center;
+            font-family: sans-serif;
+            font-size: large;
+            color: #00FFFF;
+            user-select: none;
+        }
+
+        .bottombanner {
+            z-index: 10;
+            width: 100%;
+            height: 10%;
+            position: fixed;
+            bottom: 5px;
+            left: 0px;
+            background-size: cover;
+            text-align: center;
+            font-family: sans-serif;
+            font-size: large;
+            color: #00ffff;
+            user-select: none;
+        }
+
+        .button {
+            border: none;
+            color: white;
+            padding: 10px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+
+<body style="margin: 0px; overflow: hidden;">
+<div class="topbanner" id="topBanner">
+
+</div>
+
+<a-scene id="scene" shadow="type: pcfsoft" embedded vr-mode-ui="enabled: false;"
+         arjs="debugUIEnabled: false; sourceType: webcam; patternRatio:0.80"
+         gesture-detector
+         audiohandler
+         markerhandler
+         reorienthandler
+>
+
+    <a-assets>
+        <a-asset-item id="derbymodel" src="models/FortniteDerby2.glb"></a-asset-item>
+        <a-asset-item id="lynxmodel" src="models/NeoNCat.glb"></a-asset-item>
+        <a-asset-item id="electroswingmodel" src="models/electroswing.glb"></a-asset-item>
+        <a-asset-item id="splaterellamodel" src="models/Splaterella.glb"></a-asset-item>
+        <img id="circlegif" src="images/audio_animation_circlebars.gif">
+        <audio id="music" src="music/music.mp3" preload="auto" crossorigin="anonymous"></audio>
+    </a-assets>
+
+    <a-entity camera></a-entity>
+
+    <a-marker id="hiroMarker"
+              type="pattern" url="data/pattern-hiro.patt"
+              raycaster="objects: .clickable"
+              emitevents="true"
+              cursor="fuse: false; rayOrigin: mouse;"
+
+    >
+        <a-entity id="contentParentWrapper" gesture-handler class="clickable">
+
+            <a-entity id="contentParent"
+                      derbyscene
+                      lynxscene
+                      splaterellascene
+                      electricswingscene
+                      circlebarsscene
+            >
+
+                <a-entity light="type: ambient; intensity: 2;"></a-entity>
+
+                <a-entity light="type: spot;
+                   castShadow: true;
+                   intensity: 4;
+                   shadowCameraVisible: false;"
+                          position="1 3 3">
+                </a-entity>
+
+                <a-shadow-plane
+                        id="shadow-plane-primitive"
+                        dimensions="20 20">
+                </a-shadow-plane>
+
+                <a-entity id="circlebars" rotation="-90 0 0" geometry="primitive: circle; radius: 1.5"
+                          material="shader:gif; src:url(./images/audio_animation_circlebars.gif);"
+                          sound="src: #music; loop:true; positional: true;"
+                ></a-entity>
+
+                <a-entity
+                        particle-system="texture: ./images/star1.png; color: #FFFFFF, #367588; velocityValue: 0 8 0; velocitySpread: 2 2 2; size: 0.75">
+                </a-entity>
+            </a-entity>
+        </a-entity>
+
+
+    </a-marker>
+
+
+</a-scene>
+<div class="bottombanner" id="bottomBanner">
+    <button id="musicbutton" class="button"></button>
+    <button id="reorientbutton" class="button">Reorient to marker</button>
+    </br><label id="debugText"></label>
+</div>
+
+</body>
+</html>
