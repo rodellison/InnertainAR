@@ -16,3 +16,4 @@ other characters dancing.
 
 All models were downloaded and converted to .glb using Blender and associated textures were reduced/optimized for mobile.
 
+![Innertain](capture.jpg)
